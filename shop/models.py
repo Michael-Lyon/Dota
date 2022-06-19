@@ -1,7 +1,6 @@
 from distutils.command.upload import upload
 from tabnanny import verbose
 from textwrap import indent
-from turtle import update
 from unicodedata import category
 from zoneinfo import available_timezones
 from django.db import models
