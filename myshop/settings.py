@@ -179,7 +179,7 @@ Configuration.configure(
 )
 
 #REDIS
-REDIS_HOST = 'localhost'
+REDIS_HOST = 'redis://redistogo:d27dfbccd682ee2ea7373dc99d1bc290@barb.redistogo.com:9291/'
 # REDIS_PORT = 6379
 REDIS_PORT = 9291
 REDIS_DB = 1
