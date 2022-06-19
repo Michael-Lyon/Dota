@@ -179,7 +179,7 @@ Configuration.configure(
 )
 
 #REDIS
-REDIS_HOST = 'redis-12153.c257.us-east-1-3.ec2.cloud.redislabs.com:12153'
+REDIS_HOST = 'redis-12153.c257.us-east-1-3.ec2.cloud.redislabs.com'
 # REDIS_PORT = 6379
 # REDIS_PORT = 9291
 REDIS_PORT = 12153
