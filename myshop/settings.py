@@ -179,10 +179,12 @@ Configuration.configure(
 )
 
 #REDIS
-REDIS_HOST = 'redis://redistogo:d27dfbccd682ee2ea7373dc99d1bc290@barb.redistogo.com:9291/'
+REDIS_HOST = 'redis-12153.c257.us-east-1-3.ec2.cloud.redislabs.com:12153'
 # REDIS_PORT = 6379
-REDIS_PORT = 9291
+# REDIS_PORT = 9291
+REDIS_PORT = 12153
 REDIS_DB = 1
+REDIS_PASSWORD = 'PZL3G7CmLPgeZ6qnPQfrIwmgTq2r3pYI'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 django_heroku.settings(locals())

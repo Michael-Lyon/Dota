@@ -5,7 +5,8 @@ from .models import Products
 #connect to reddis
 r = redis.StrictRedis(host=settings.REDIS_HOST,
                       port=settings.REDIS_PORT,
-                      db=settings.REDIS_DB)
+                      password=settings.REDIS_PASSWORD)
+                    #   db=settings.REDIS_DB)
 
 
 class Recommender(object):
