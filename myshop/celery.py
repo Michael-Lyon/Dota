@@ -5,7 +5,7 @@ from django.conf import settings
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myshop.settings')
 
-app = Celery('myshop', backend=settings.REDIS_HOST, backend=settings.REDIS_HOST)
+app = Celery('myshop', backend="redis-12153.c257.us-east-1-3.ec2.cloud.redislabs.com:12153", backend='redis-12153.c257.us-east-1-3.ec2.cloud.redislabs.com:12153')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
