@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-4+_(3$tx@69!2wigy35y*+=+@98nod7f3ky!@p@dj%y5n1gulx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'moma-dota.herokuapp.com']
 
 
 # Application definition
