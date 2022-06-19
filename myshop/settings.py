@@ -180,7 +180,8 @@ Configuration.configure(
 
 #REDIS
 REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
+# REDIS_PORT = 6379
+REDIS_PORT = 9291
 REDIS_DB = 1
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
