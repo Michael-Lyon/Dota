@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'payment',
     'coupons',
     "django_makemessages_xgettext",
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'cart.context_processors.cart',
+                'shop.views.categories',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -179,12 +181,12 @@ Configuration.configure(
 )
 
 #REDIS
-REDIS_HOST = 'redis-12153.c257.us-east-1-3.ec2.cloud.redislabs.com'
+# REDIS_HOST = 'redis-12153.c257.us-east-1-3.ec2.cloud.redislabs.com'
 # REDIS_PORT = 6379
 # REDIS_PORT = 9291
-REDIS_PORT = 12153
-REDIS_DB = 1
-REDIS_PASSWORD = 'PZL3G7CmLPgeZ6qnPQfrIwmgTq2r3pYI'
+# REDIS_PORT = 12153
+# REDIS_PASSWORD = 'PZL3G7CmLPgeZ6qnPQfrIwmgTq2r3pYI'
+# REDIS_DB = 1
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 django_heroku.settings(locals())

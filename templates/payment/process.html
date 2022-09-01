@@ -1,24 +1,44 @@
-{% extends "shop/base.html" %}
+{% extends "store/base.html" %}
 
 {% block title %}Pay by credit card{% endblock %}
 
 {% block content %}
+<style>
+        input{
+           text-align: center;
+        }
+
+        form div.field {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            width: 100%;
+            height: 22px;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            border-bottom: 1px solid #efefef;
+        }
+</style>
+<main class="container">
+  <div class="px-4 py-5 my-5 text-center">
   <h1>Pay by credit card</h1>
   <form id="payment" method="post">
 
     <label for="card-number">Card Number</label>
-    <div id="card-number" class="field"></div>
+    <div id="card-number" class="field text-center col-md-2"></div>
 
     <label for="cvv">CVV</label>
-    <div id="cvv" class="field"></div>
+    <div id="cvv" class="field text-center"></div>
 
     <label for="expiration-date">Expiration Date</label>
-    <div id="expiration-date" class="field"></div>
+    <div id="expiration-date" class="field text-center"></div>
 
     <input type="hidden" id="nonce" name="payment_method_nonce" value="">
     {% csrf_token %}
     <input type="submit" value="Pay">
   </form>
+</div>
+  <main>
   <!-- includes the Braintree JS client SDK -->
   <script src="https://js.braintreegateway.com/web/3.58.0/js/client.min.js"></script>
   <script src="https://js.braintreegateway.com/web/3.58.0/js/hosted-fields.min.js"></script>
@@ -37,7 +57,7 @@
       braintree.hostedFields.create({
         client: clientInstance,
         styles: {
-          'input': {'font-size': '13px'},
+          'input': {'font-size': '13px', 'text-align': 'center'},
           'input.invalid': {'color': 'red'},
           'input.valid': {'color': 'green'}
         },

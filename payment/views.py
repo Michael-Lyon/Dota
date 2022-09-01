@@ -1,5 +1,6 @@
 from http import client
 import braintree
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from orders.models import Order
 from django.template.loader import render_to_string
@@ -12,7 +13,6 @@ from io import BytesIO
 
 def payment_process(request):
     order_id = request.session.get('order_id')
-    print(order_id)
     order = get_object_or_404(Order, id=order_id)
 
     if request.method == 'POST':
@@ -25,7 +25,6 @@ def payment_process(request):
                 'submit_for_settlement':True
             }
         })
-        print(request)
         if result.is_success:
             #mark the order as paid
             order.paid = True
@@ -33,7 +32,7 @@ def payment_process(request):
             order.braintree_id = result.transaction.id
             order.save()
             # create and send invoice to the customer
-            subject = f'MOMA&DOTA - Invoice no. {order.id}'
+            subject = f'PyGod - Store - Invoice no. {order.id}'
             message = f"Please, find the attached invoice for your recent purchase."
             email = EmailMessage(
                 subject,
@@ -43,16 +42,18 @@ def payment_process(request):
             )
             # generate PDF
             html = render_to_string('orders/order/pdf.html', {'order': order})
-            out = BytesIO()
+            # out = BytesIO()
+            response = HttpResponse(content_type='application/pdf')
             stylesheets = [weasyprint.CSS(f"{settings.STATIC_ROOT}/css/pdf.css")]
-            weasyprint.HTML(string=html).write_pdf(out,
+            weasyprint.HTML(string=html).write_pdf(response, #out
                                                    stylesheets=stylesheets)
 
             # ATTACH PDF file
-            email.attach(f'order_{order.id}.pdf', out.getvalue(), 'application/pdf')
+            # email.attach(f'order_{order.id}.pdf', out.getvalue(), 'application/pdf')
             #send mail
-            email.send()
-            return redirect('payment:done')
+            # email.send()
+            return response
+            # return redirect('payment:done')
         else:
             return redirect('payment:canceled')
     else:

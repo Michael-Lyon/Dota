@@ -1,6 +1,8 @@
 from itertools import product
 from statistics import quantiles
 from django.shortcuts import render, redirect
+
+from coupons.forms import CouponApplyForm
 from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
@@ -17,6 +19,7 @@ import weasyprint
 
 def order_create(request):
     cart = Cart(request)
+    coupon_form = CouponApplyForm()
     form = OrderCreateForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
@@ -24,6 +27,7 @@ def order_create(request):
             if cart.coupon:
                 order.coupon = cart.coupon
                 order.discount = cart.coupon.discount
+                order.country = request.POST.get('country')
             order.save()
 
             for item in cart:
@@ -38,18 +42,18 @@ def order_create(request):
 
            # launch asynchronous task
             request.session['order_id'] = order.id
-            order_created.delay(order.id)
+            # order_created.delay(order.id)
             # set the order in the session
             # redirect for payment
-            return redirect(reverse('payment:process'))
+            if request.POST.get('paymentMethod') == 'bt':
+                return redirect(reverse('payment:process'))
     else:
         return render(request,
-                      'orders/order/create.html',
-                      {'cart': cart, 'form': form})
+                      'orders/order/checkout.html',
+                      {'cart': cart, 'form': form, 'coupon_form': coupon_form})
 
 
 # TODO:You can also modify the admin order detail template and the order PDF bill to display the applied coupon the same way we did for the cart.
-
 @staff_member_required
 def admin_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
