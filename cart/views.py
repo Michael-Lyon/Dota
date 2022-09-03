@@ -43,7 +43,7 @@ def cart_detail(request):
             }
         )
     # r = Recommender()
-    cart_products = [item['product'] for item in cart]
+    # cart_products = [item['product'] for item in cart]
     # recommended_products = r.suggest_product_for(cart_products,
     #                                           max_results=4)
     recommended_products = False
