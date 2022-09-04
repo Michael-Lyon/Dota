@@ -1,3 +1,4 @@
+from email.message import EmailMessage
 from itertools import product
 import json
 from statistics import quantiles
@@ -59,11 +60,46 @@ def order_create(request):
                 transaction = transaction_manager.initialize_transaction(
                     'STANDARD', transaction)  # TODO callback_url=callback)
                 payment_info = json.loads(transaction.to_json())
+                request.session['paystack_reference'] = payment_info['reference']
                 order.paystack_reference = payment_info['reference']
                 order.save()
                 return redirect(transaction.authorization_url)
 
     else:
+        if request.session.get('paystack_reference', None):
+            order_id = request.session.get('order_id')
+            order = get_object_or_404(Order, id=order_id)
+            transaction_manager = TransactionsManager()
+            transaction_manager.verify_transaction(
+                transaction_reference=request.session.get('paystack_reference'))
+            payment_info = json.loads(transaction.to_json())
+            if payment_info['status'] == True:
+                order.paid = True
+                order.save()
+                # create and send invoice to the customer
+                subject = f'PyGod - Store - Invoice no. {order.id}'
+                message = f"Please, find the attached invoice for your recent purchase."
+                email = EmailMessage(
+                    subject,
+                    message,
+                    settings.EMAIL_HOST_USER,
+                    [order.email]
+                )
+                # generate PDF
+                html = render_to_string('orders/order/pdf.html', {'order': order})
+                # out = BytesIO()
+                response = HttpResponse(content_type='application/pdf')
+                stylesheets = [weasyprint.CSS(f"{settings.STATIC_ROOT}/css/pdf.css")]
+                weasyprint.HTML(string=html).write_pdf(response,  # out
+                                                    stylesheets=stylesheets)
+
+                # ATTACH PDF file
+                # email.attach(f'order_{order.id}.pdf', out.getvalue(), 'application/pdf')
+                #send mail
+                # email.send()
+                return response
+            else:
+                return redirect('payment:canceled')
         return render(request,
                       'orders/order/checkout.html',
                       {'cart': cart, 'form': form, 'coupon_form': coupon_form})
