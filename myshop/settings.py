@@ -190,5 +190,5 @@ Configuration.configure(
 # REDIS_PASSWORD = 'PZL3G7CmLPgeZ6qnPQfrIwmgTq2r3pYI'
 # REDIS_DB = 1
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 django_heroku.settings(locals())
