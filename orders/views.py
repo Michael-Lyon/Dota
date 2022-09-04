@@ -57,7 +57,7 @@ def order_create(request):
                 transaction = Transaction(fee, email)
                 transaction_manager = TransactionsManager()
                 transaction = transaction_manager.initialize_transaction(
-                    'STANDARD', transaction, callback_url=callback)  # TODO callback_url=callback)
+                    'STANDARD', transaction)  # TODO callback_url=callback)
                 payment_info = json.loads(transaction.to_json())
                 order.paystack_reference = payment_info['reference']
                 order.save()
