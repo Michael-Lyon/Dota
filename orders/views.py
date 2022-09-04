@@ -49,7 +49,6 @@ def order_create(request):
             # set the order in the session
             # redirect for payment
             if request.POST.get('paymentMethod') == 'bt':
-                order.save()
                 return redirect(reverse('payment:process'))
             else:
                 email = request.user.email
