@@ -73,18 +73,19 @@ def order_create(request):
             transaction = transaction_manager.verify_transaction(
                 transaction_reference=request.session.get('paystack_reference'))
             payment_info = json.loads(transaction.to_json())
-            if payment_info['status'] == True:
+            # print(payment_info)
+            if payment_info['status'] == "success":
                 order.paid = True
                 order.save()
                 # create and send invoice to the customer
                 subject = f'PyGod - Store - Invoice no. {order.id}'
                 message = f"Please, find the attached invoice for your recent purchase."
-                email = EmailMessage(
-                    subject,
-                    message,
-                    settings.EMAIL_HOST_USER,
-                    [order.email]
-                )
+                # email = EmailMessage(
+                #     subject,
+                #     message,
+                #     settings.EMAIL_HOST_USER,
+                #     [order.email]
+                # )
                 # generate PDF
                 html = render_to_string('orders/order/pdf.html', {'order': order})
                 # out = BytesIO()
@@ -97,6 +98,7 @@ def order_create(request):
                 # email.attach(f'order_{order.id}.pdf', out.getvalue(), 'application/pdf')
                 #send mail
                 # email.send()
+                del request.session['paystack_reference']
                 return response
             else:
                 del request.session['paystack_reference']
