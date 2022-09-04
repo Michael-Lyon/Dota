@@ -31,15 +31,14 @@ def order_create(request):
                 order.coupon = cart.coupon
                 order.discount = cart.coupon.discount
                 order.country = request.POST.get('country')
+            order.save()
             
-
             for item in cart:
                 OrderItem.objects.create(order=order,
                                          product=item['product'],
                                          price=item['price'],
                                          quantity=item['quantity']
                                          )
-            order.save()
             # clear the cart
             cart.clear()
 
@@ -51,7 +50,7 @@ def order_create(request):
             if request.POST.get('paymentMethod') == 'bt':
                 return redirect(reverse('payment:process'))
             else:
-                email = request.user.email
+                email = order.email
                 callback = f"{get_current_site(request)}:{reverse('shop:product_list')}"
                 print(callback)
                 fee = order.get_total_cost() * 100
