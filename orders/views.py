@@ -39,7 +39,7 @@ def order_create(request):
                                          price=item['price'],
                                          quantity=item['quantity']
                                          )
-
+            order.save()
             # clear the cart
             cart.clear()
 
