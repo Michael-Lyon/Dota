@@ -99,6 +99,7 @@ def order_create(request):
                 # email.send()
                 return response
             else:
+                del request.session['paystack_reference']
                 return redirect('payment:canceled')
         return render(request,
                       'orders/order/checkout.html',
