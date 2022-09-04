@@ -70,7 +70,7 @@ def order_create(request):
             order_id = request.session.get('order_id')
             order = get_object_or_404(Order, id=order_id)
             transaction_manager = TransactionsManager()
-            transaction_manager.verify_transaction(
+            transaction = transaction_manager.verify_transaction(
                 transaction_reference=request.session.get('paystack_reference'))
             payment_info = json.loads(transaction.to_json())
             if payment_info['status'] == True:
