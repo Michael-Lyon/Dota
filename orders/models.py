@@ -1,11 +1,13 @@
-from itertools import product
-from django.db import models
-from shop.models import Products
 # Create your models here.
 from decimal import Decimal
-from django.core.validators import MinValueValidator, \
-    MaxValueValidator
+from itertools import product
+
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+
 from coupons.models import Coupon
+from shop.models import Products
+
 
 class Order(models.Model): 
     first_name = models.CharField(max_length=50)

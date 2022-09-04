@@ -1,12 +1,17 @@
 from urllib import request
+
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render, redirect, get_list_or_404
+from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
+                              render)
 from django.views.decorators.http import require_POST
+
+from coupons.forms import CouponApplyForm
 from shop import recommender
 from shop.models import Products
+
 from .cart import Cart
 from .forms import CartAddProductForm
-from coupons.forms import CouponApplyForm
+
 # from shop.recommender import Recommender
 
 @require_POST

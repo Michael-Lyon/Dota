@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
-import django_heroku
-from django.utils.translation import gettext_lazy as _
-from braintree import Configuration, Environment
 from pathlib import Path
+
+import django_heroku
+from braintree import Configuration, Environment
+from django.utils.translation import gettext_lazy as _
+
+from python_paystack.paystack_config import PaystackConfig
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'orders',
     'payment',
     'coupons',
+    'python_paystack',
     "django_makemessages_xgettext",
     'widget_tweaks',
 ]
@@ -192,3 +196,9 @@ Configuration.configure(
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 django_heroku.settings(locals())
+
+
+PaystackConfig.SECRET_KEY = 'sk_test_a83e9daba49d9d0241d147117e2e29ea525bd34f'
+PaystackConfig.PUBLIC_KEY = 'pk_test_21e9b4e6f42bae53a49bfd551a63c4ac8c0c002f'
+
+PAYSTACK_SECRET = 'sk_test_a83e9daba49d9d0241d147117e2e29ea525bd34f'

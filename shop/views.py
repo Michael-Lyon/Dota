@@ -1,8 +1,12 @@
 from itertools import product
 from zoneinfo import available_timezones
-from django.shortcuts import render, get_object_or_404
-from .models import Category, Products
+
+from django.shortcuts import get_object_or_404, render
+
 from cart.forms import CartAddProductForm
+
+from .models import Category, Products
+
 # from .recommender import Recommender
 
 def product_list(request, category_slug=None):
