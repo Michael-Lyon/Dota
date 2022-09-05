@@ -64,7 +64,6 @@ def order_create(request):
                 order.paystack_reference = payment_info['reference']
                 order.save()
                 return redirect(transaction.authorization_url)
-
     else:
         if request.session.get('paystack_reference', None):
             order_id = request.session.get('order_id')
@@ -103,7 +102,7 @@ def order_create(request):
             else:
                 del request.session['paystack_reference']
                 return redirect('payment:canceled')
-        return render(request,
+    return render(request,
                       'orders/order/checkout.html',
                       {'cart': cart, 'form': form, 'coupon_form': coupon_form})
 

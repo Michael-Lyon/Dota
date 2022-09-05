@@ -57,7 +57,7 @@
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">First name</label>
-                            {% render_field form.first_name|append_attr:"required:true" class+="form-control" placeholder="First name" %}
+                            {% render_field form.first_name|append_attr:"required" class+="form-control" placeholder="First name" %}
                             {% comment %} <input type="text" class="form-control" id="firstName" placeholder="" value="" required> {% endcomment %}
                             <div class="invalid-feedback">
                                 Valid first name is required.
@@ -66,7 +66,7 @@
 
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label">Last name</label>
-                            {% render_field form.last_name|append_attr:"required:true" class+="form-control" placeholder="Last Name" %}
+                            {% render_field form.last_name|append_attr:"required" class+="form-control" placeholder="Last Name" %}
                             {% comment %} <input type="text" class="form-control" id="lastName" placeholder="" value="" required> {% endcomment %}
                             <div class="invalid-feedback">
                                 Valid last name is required.
@@ -76,7 +76,7 @@
                         <div class="col-12">
                             <label for="email" class="form-label">Email <span
                                     class="text-muted">(Optional)</span></label>
-                                    {% render_field form.email|append_attr:"required:true" class+="form-control" placeholder="you@mail.com" %}
+                                    {% render_field form.email|append_attr:"required" class+="form-control" placeholder="you@mail.com" %}
                             {% comment %} <input type="email" class="form-control" id="email" placeholder="you@example.com"> {% endcomment %}
                             <div class="invalid-feedback">
                                 Please enter a valid email address for shipping updates.
@@ -85,7 +85,7 @@
 
                         <div class="col-12">
                             <label for="address" class="form-label">Address</label>
-                            {% render_field form.address|append_attr:"required:true" class+="form-control"  placeholder="123 Ikeja" %}
+                            {% render_field form.address|append_attr:"required" class+="form-control"  placeholder="123 Ikeja" %}
                             {% comment %} <input type="text" class="form-control" id="address" placeholder="1234 Main St" required> {% endcomment %}
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
@@ -94,7 +94,7 @@
 
                         <div class="col-md-5">
                             <label for="country" class="form-label">Country</label>
-                            <select class="form-select" id="country" name="country" required>
+                            <select required class="form-select" id="country" name="country" required>
                                 <option value="">Choose...</option>
                                 <option value="Nigeria"> Nigeria </option>
                             </select>
@@ -105,7 +105,7 @@
 
                         <div class="col-md-4">
                             <label for="state" class="form-label">State</label>
-                            <select class="form-select" id="state" name="city" required>
+                            <select required class="form-select" id="state" name="city" required>
                                 <option value="">Choose...</option>
                                 <option value="Lagos">Lagos</option>
                             </select>
@@ -116,7 +116,7 @@
 
                         <div class="col-md-3">
                             <label for="zip" class="form-label">Zip</label>
-                            {% render_field form.postal_code class+="form-control" placeholder="Postal code" %}
+                            {% render_field form.postal_code|append_attr:"required" class+="form-control" placeholder="Postal code" %}
                             {% comment %} <input type="text" class="form-control" id="zip" placeholder="" required> {% endcomment %}
                             <div class="invalid-feedback">
                                 Zip code required.
