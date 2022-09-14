@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import environ
 
 import django_heroku
 from braintree import Configuration, Environment
@@ -21,7 +25,8 @@ from python_paystack.paystack_config import PaystackConfig
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -52,6 +57,7 @@ INSTALLED_APPS = [
     'python_paystack',
     "django_makemessages_xgettext",
     'widget_tweaks',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -148,8 +154,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -175,9 +182,9 @@ EMAIL_HOST_USER = 'mickiasomg@gmail.com'
 EMAIL_USE_TLS = True
 
 # PAYMENT SETTINGS
-BRAINTREE_MERCHANT_ID = 'jc6yx39ztpsqxr4g'
-BRAINTREE_PUBLIC_KEY = '97syjpmwn3mkwrnw'  
-BRAINTREE_PRIVATE_KEY = '06c767972e1ad778fdaeb8bcbf696c0f' 
+BRAINTREE_MERCHANT_ID = env("BRAINTREE_MERCHANT_ID")
+BRAINTREE_PUBLIC_KEY = env("BRAINTREE_PUBLIC_KEY")
+BRAINTREE_PRIVATE_KEY = env("BRAINTREE_PRIVATE_KEY")
 
 Configuration.configure(
     Environment.Sandbox,
@@ -187,17 +194,21 @@ Configuration.configure(
 )
 
 #REDIS
-# REDIS_HOST = 'redis-12153.c257.us-east-1-3.ec2.cloud.redislabs.com'
-# REDIS_PORT = 6379
-# REDIS_PORT = 9291
-# REDIS_PORT = 12153
-# REDIS_PASSWORD = 'PZL3G7CmLPgeZ6qnPQfrIwmgTq2r3pYI'
+REDIS_HOST = env("REDIS_HOST")
+REDIS_PORT = env("REDIS_PORT")
+REDIS_PASSWORD = env("REDIS_PASSWORD")
+REDIS_DB = env("REDIS_DB")
 # REDIS_DB = 1
+ 
+
+PaystackConfig.SECRET_KEY = env("PAYSTACK_SECRET")
+PaystackConfig.PUBLIC_KEY = env("PAYSTACK_PUBLIC")
 
 
 
 
-PaystackConfig.SECRET_KEY = 'sk_test_a83e9daba49d9d0241d147117e2e29ea525bd34f'
-PaystackConfig.PUBLIC_KEY = 'pk_test_21e9b4e6f42bae53a49bfd551a63c4ac8c0c002f'
-
-PAYSTACK_SECRET = 'sk_test_a83e9daba49d9d0241d147117e2e29ea525bd34f'
+cloudinary.config( 
+  cloud_name = env("CLOUD_NAME"), 
+  api_key = env("CLOUD_KEY"), 
+  api_secret = env("CLOUD_SECRET"), 
+)

@@ -7,7 +7,7 @@ from cart.forms import CartAddProductForm
 
 from .models import Category, Products
 
-# from .recommender import Recommender
+from .recommender import Recommender
 
 def product_list(request, category_slug=None):
     category = None
@@ -34,8 +34,8 @@ def categories(request):
 
 def product_detail(request,id, slug):
     product = get_object_or_404(Products,id=id, slug=slug, available=True)
-    # r = Recommender()
-    # recommended_products = r.suggest_product_for([product], 4)
+    r = Recommender()
+    # recommended_products = r.suggest_product_for([product], 1)
     recommended_products = False
     cart_product_form = CartAddProductForm()
     return render(request, 'shop/product/single.html', {'product':product, 'cart_product_form': cart_product_form, 'recommended_products': recommended_products})

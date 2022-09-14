@@ -45,7 +45,7 @@ def order_create(request):
 
            # launch asynchronous task
             request.session['order_id'] = order.id
-            # order_created.delay(order.id)
+            # TODO: order_created.delay(order.id)
             # set the order in the session
             # redirect for payment
             if request.POST.get('paymentMethod') == 'bt':
