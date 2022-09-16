@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+# import cloudinary.uploader
+# import cloudinary.api
 import environ
 
 import django_heroku
@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'python_paystack',
     "django_makemessages_xgettext",
     'widget_tweaks',
-    'cloudinary'
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -205,10 +206,18 @@ PaystackConfig.SECRET_KEY = env("PAYSTACK_SECRET")
 PaystackConfig.PUBLIC_KEY = env("PAYSTACK_PUBLIC")
 
 
-
-
-cloudinary.config( 
-  cloud_name = env("CLOUD_NAME"), 
-  api_key = env("CLOUD_KEY"), 
-  api_secret = env("CLOUD_SECRET"), 
+cloudinary.config(
+    cloud_name="dzy2mpv8w",
+    api_key="896867796834272",
+    api_secret="1OUOyOgQSrNta8J9In3Go8BkgN0"
 )
+
+
+CLOUDINARY_URL="cloudinary://896867796834272:1OUOyOgQSrNta8J9In3Go8BkgN0@dzy2mpv8w"
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': "dzy2mpv8w",
+    'API_KEY':  "896867796834272",
+    'API_SECRET':  "1OUOyOgQSrNta8J9In3Go8BkgN0",
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
