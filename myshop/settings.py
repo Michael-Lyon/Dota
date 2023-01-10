@@ -210,7 +210,7 @@ cloudinary.config(
     cloud_name="dzy2mpv8w",
     api_key="896867796834272",
     api_secret="1OUOyOgQSrNta8J9In3Go8BkgN0",
-    api_proxy = "http://proxy.server:3128"
+    api_proxy="http://proxy.server:3128"
 )
 
 
@@ -220,5 +220,6 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': "dzy2mpv8w",
     'API_KEY':  "896867796834272",
     'API_SECRET':  "1OUOyOgQSrNta8J9In3Go8BkgN0",
+    'API_PROXY': "http://proxy.server:3128"
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
