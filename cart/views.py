@@ -18,7 +18,7 @@ from .forms import CartAddProductForm
 def cart_add(request):
     if request.method == 'POST':
         product_id = request.POST.get('productid')
-        cart = Cart(request)
+        cart = Cart(request) 
         product = get_object_or_404(Products, id=product_id)
         cart.add(
             product=product,

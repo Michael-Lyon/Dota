@@ -209,7 +209,8 @@ PaystackConfig.PUBLIC_KEY = env("PAYSTACK_PUBLIC")
 cloudinary.config(
     cloud_name="dzy2mpv8w",
     api_key="896867796834272",
-    api_secret="1OUOyOgQSrNta8J9In3Go8BkgN0"
+    api_secret="1OUOyOgQSrNta8J9In3Go8BkgN0",
+    api_proxy = "http://proxy.server:3128"
 )
 
 
