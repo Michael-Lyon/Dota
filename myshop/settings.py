@@ -35,9 +35,9 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-4+_(3$tx@69!2wigy35y*+=+@98nod7f3ky!@p@dj%y5n1gulx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*",'localhost', '127.0.0.1', 'moma-dota.herokuapp.com', "gray-shannon-cop-executives.trycloudflare.com"]
+ALLOWED_HOSTS = ['localhost', "nilexglobalsolar.com"]
 
 
 # Application definition
@@ -224,4 +224,26 @@ PaystackConfig.PUBLIC_KEY = env("PAYSTACK_PUBLIC")
 # }
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CSRF_TRUSTED_ORIGINS = ['https://fresh-teams-appear.tunnelapp.dev', "https://gray-shannon-cop-executives.trycloudflare.com" ]
+CSRF_TRUSTED_ORIGINS = ['https://nilexglobalsolar.com' ]
+
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
