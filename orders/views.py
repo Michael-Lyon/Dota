@@ -58,7 +58,7 @@ def order_create(request):
                 transaction = Transaction(fee, email)
                 transaction_manager = TransactionsManager()
                 transaction = transaction_manager.initialize_transaction(
-                    'STANDARD', transaction)  # TODO callback_url=callback)
+                    'STANDARD', transaction, callback_url="https://fresh-teams-appear.tunnelapp.dev/orders/create/")  # TODO callback_url=callback)
                 payment_info = json.loads(transaction.to_json())
                 request.session['paystack_reference'] = payment_info['reference']
                 order.paystack_reference = payment_info['reference']
@@ -71,13 +71,14 @@ def order_create(request):
             transaction_manager = TransactionsManager()
             transaction = transaction_manager.verify_transaction(
                 transaction_reference=request.session.get('paystack_reference'))
+
             payment_info = json.loads(transaction.to_json())
             # print(payment_info)
             if payment_info['status'] == "success":
                 order.paid = True
                 order.save()
                 # create and send invoice to the customer
-                subject = f'PyGod - Store - Invoice no. {order.id}'
+                subject = f'NilexGlobalSolar - Invoice no. {order.id}'
                 message = f"Please, find the attached invoice for your recent purchase."
                 # email = EmailMessage(
                 #     subject,

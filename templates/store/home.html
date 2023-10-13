@@ -1,6 +1,6 @@
 {% extends "store/base.html" %}
 {% load static %}
-{% block title %}PyGod - store{% endblock %}
+{% block title %}NilexGlobalSolar{% endblock %}
 {% block content %}
 
 
@@ -9,13 +9,12 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-2">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="h1 fw-bold">Ecommerce Store</h1>
+        <h1 class="h1 fw-bold">Nilex Global Solar Store</h1>
         <p class="lead text-muted">
-          Remember, every ‘mistake’ your customer makes, it’s not because they’re stupid. It’s because your website sucks.
-          
+          The best solar appliances you can trust at the lowest prices you can find.
         </p>
         <p>
-          Here is a website that doesn't suck.
+         Nilex Global Solar Store &rarr; Products {% if category %} &rarr; {{ category.name }}{% endif %}
         </p>
       </div>
     </div>
@@ -25,7 +24,7 @@
     <div class="container">
 
       <div class="pb-3 h5">{% if category %}{{ category.name }}{% else %}Products{% endif %}</div>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+      <div class="row row-cols-2 row-cols-sm-4 row-cols-md-6 g-3">
 
         {% for product in products %}
 

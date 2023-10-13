@@ -33,7 +33,7 @@ def payment_process(request):
             order.braintree_id = result.transaction.id
             order.save()
             # create and send invoice to the customer
-            subject = f'PyGod - Store - Invoice no. {order.id}'
+            subject = f'NilexGlobalSolar - Invoice no. {order.id}'
             message = f"Please, find the attached invoice for your recent purchase."
             email = EmailMessage(
                 subject,
@@ -46,7 +46,7 @@ def payment_process(request):
             # out = BytesIO()
             response = HttpResponse(content_type='application/pdf')
             stylesheets = [weasyprint.CSS(f"{settings.STATIC_ROOT}/css/pdf.css")]
-            weasyprint.HTML(string=html).write_pdf(response, #out
+            weasyprint.HTML(string=html).write_pdf(response, #out 
                                                    stylesheets=stylesheets)
 
             # ATTACH PDF file

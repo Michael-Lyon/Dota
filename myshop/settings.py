@@ -37,7 +37,7 @@ SECRET_KEY = 'django-insecure-4+_(3$tx@69!2wigy35y*+=+@98nod7f3ky!@p@dj%y5n1gulx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'moma-dota.herokuapp.com']
+ALLOWED_HOSTS = ["*",'localhost', '127.0.0.1', 'moma-dota.herokuapp.com', "gray-shannon-cop-executives.trycloudflare.com"]
 
 
 # Application definition
@@ -206,20 +206,22 @@ PaystackConfig.SECRET_KEY = env("PAYSTACK_SECRET")
 PaystackConfig.PUBLIC_KEY = env("PAYSTACK_PUBLIC")
 
 
-cloudinary.config(
-    cloud_name="dzy2mpv8w",
-    api_key="896867796834272",
-    api_secret="1OUOyOgQSrNta8J9In3Go8BkgN0",
-    api_proxy="http://proxy.server:3128"
-)
+# cloudinary.config(
+#     cloud_name="dzy2mpv8w",
+#     api_key="896867796834272",
+#     api_secret="1OUOyOgQSrNta8J9In3Go8BkgN0",
+#     api_proxy="http://proxy.server:3128"
+# )
 
 
-CLOUDINARY_URL="cloudinary://896867796834272:1OUOyOgQSrNta8J9In3Go8BkgN0@dzy2mpv8w"
+# CLOUDINARY_URL="cloudinary://896867796834272:1OUOyOgQSrNta8J9In3Go8BkgN0@dzy2mpv8w"
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': "dzy2mpv8w",
-    'API_KEY':  "896867796834272",
-    'API_SECRET':  "1OUOyOgQSrNta8J9In3Go8BkgN0",
-    'API_PROXY': "http://proxy.server:3128"
-}
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': "dzy2mpv8w",
+#     'API_KEY':  "896867796834272",
+#     'API_SECRET':  "1OUOyOgQSrNta8J9In3Go8BkgN0",
+#     'API_PROXY': "http://proxy.server:3128"
+# }
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CSRF_TRUSTED_ORIGINS = ['https://fresh-teams-appear.tunnelapp.dev', "https://gray-shannon-cop-executives.trycloudflare.com" ]

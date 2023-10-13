@@ -59,7 +59,8 @@
                     {% csrf_token %}
                     <div class="row g-3">
                         <div class="col-sm-6">
-                            <label for="firstName" class="form-label">First name</label>
+                            <label for="firstName" class="form-label">First name<span
+                                    class="text-muted">(Required)</span></label>
                             {% render_field form.first_name class+="form-control" placeholder="First name" %}
                             {% comment %} <input type="text" class="form-control" id="firstName" placeholder="" value="" required> {% endcomment %}
                             <div class="invalid-feedback">
@@ -68,7 +69,8 @@
                         </div>
 
                         <div class="col-sm-6">
-                            <label for="lastName" class="form-label">Last name</label>
+                            <label for="lastName" class="form-label">Last name<span
+                                    class="text-muted">(Required)</span></label>
                             {% render_field form.last_name class+="form-control" placeholder="Last Name" %}
                             {% comment %} <input type="text" class="form-control" id="lastName" placeholder="" value="" required> {% endcomment %}
                             <div class="invalid-feedback">
@@ -78,7 +80,7 @@
 
                         <div class="col-12">
                             <label for="email" class="form-label">Email <span
-                                    class="text-muted">(Optional)</span></label>
+                                    class="text-muted">(Required)</span></label>
                                     {% render_field form.email class+="form-control" placeholder="you@mail.com" %}
                             {% comment %} <input type="email" class="form-control" id="email" placeholder="you@example.com"> {% endcomment %}
                             <div class="invalid-feedback">
@@ -87,7 +89,8 @@
                         </div>
 
                         <div class="col-12">
-                            <label for="address" class="form-label">Address</label>
+                            <label for="address" class="form-label">Address <span
+                                    class="text-muted">(Required)</span></label>
                             {% render_field form.address class+="form-control"  placeholder="123 Ikeja" %}
                             {% comment %} <input type="text" class="form-control" id="address" placeholder="1234 Main St" required> {% endcomment %}
                             <div class="invalid-feedback">
@@ -96,7 +99,8 @@
                         </div>
 
                         <div class="col-md-5">
-                            <label for="country" class="form-label">Country</label>
+                            <label for="country" class="form-label">Country <span
+                                    class="text-muted">(Required)</span></label>
                             <select required class="form-select" id="country" name="country" required>
                                 <option value="">Choose...</option>
                                 <option value="Nigeria"> Nigeria </option>
@@ -107,7 +111,8 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label for="state" class="form-label">State</label>
+                            <label for="state" class="form-label">State <span
+                                    class="text-muted">(Required)</span></label>
                             <select required class="form-select" id="state" name="city" required>
                                 <option value="">Choose...</option>
                                 <option value="Lagos">Lagos</option>
@@ -118,7 +123,8 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label for="zip" class="form-label">Zip</label>
+                            <label for="zip" class="form-label">Zip <span
+                                    class="text-muted">(Required)</span></label>
                             {% render_field form.postal_code class+="form-control" placeholder="Postal code" %}
                             {% comment %} <input type="text" class="form-control" id="zip" placeholder="" required> {% endcomment %}
                             <div class="invalid-feedback">

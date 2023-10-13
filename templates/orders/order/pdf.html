@@ -1,6 +1,6 @@
 <html>
 <body>
-  <h1>PyGod - Store</h1>
+  <h1>NilexGlobalSolar</h1>
   <p>
     Invoice no. {{ order.id }}</br>
     <span class="secondary">
@@ -30,14 +30,14 @@
       {% for item in order.items.all %}
         <tr class="row{% cycle "1" "2" %}">
           <td>{{ item.product.name }}</td>
-          <td class="num">${{ item.price }}</td>
+          <td class="num">NGN{{ item.price }}</td>
           <td class="num">{{ item.quantity }}</td>
-          <td class="num">${{ item.get_cost }}</td>
+          <td class="num">NGN{{ item.get_cost }}</td>
         </tr>
       {% endfor %}
       <tr class="total">
         <td colspan="3">Total</td>
-        <td class="num">${{ order.get_total_cost }}</td>
+        <td class="num">NGN{{ order.get_total_cost }}</td>
       </tr>
     </tbody>
   </table>

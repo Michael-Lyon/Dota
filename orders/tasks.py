@@ -15,7 +15,7 @@ def order_created(order_id):
 
     order = Order.objects.get(id=order_id)
     subject = f"Order {order_id}"
-    message = f"Dear {order.first_name},\n\n\tYou have successfully placed an order. On PyGod - Store. Your order id is {order.id}"
+    message = f"Dear {order.first_name},\n\n\tYou have successfully placed an order. On NilexGlobalSolar. Your order id is {order.id}"
 
     mail_sent = send_mail(subject, message, EMAIL_HOST_USER, [order.email])
 

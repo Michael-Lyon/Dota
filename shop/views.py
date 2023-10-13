@@ -9,6 +9,13 @@ from .models import Category, Products
 
 from .recommender import Recommender
 
+
+
+def landing(request):
+    return render(request, "store/landing.html")
+
+
+
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()

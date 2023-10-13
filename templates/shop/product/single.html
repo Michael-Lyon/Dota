@@ -57,6 +57,7 @@
             },
             success: function (json) {
                document.getElementById("cart-qty").innerHTML = json.qty
+               alert("Item added successfully")
             },
             error: function (xhr, errmsg, err) {}
         });
