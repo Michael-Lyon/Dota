@@ -21,7 +21,7 @@ dj-database-url==2.1.0
 Django==4.2.5
 django-cloudinary-storage==0.3.0
 django-environ==0.11.2
-django-heroku==0.3.1
+# django-heroku==0.3.1
 django-makemessages-xgettext==0.1.1
 django-widget-tweaks==1.5.0
 flower==2.0.1
