@@ -17,7 +17,7 @@ import cloudinary
 # import cloudinary.api
 import environ
 
-import django_heroku
+# import django_heroku
 from braintree import Configuration, Environment
 from django.utils.translation import gettext_lazy as _
 
@@ -164,7 +164,7 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
