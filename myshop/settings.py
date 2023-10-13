@@ -37,7 +37,7 @@ SECRET_KEY = 'django-insecure-4+_(3$tx@69!2wigy35y*+=+@98nod7f3ky!@p@dj%y5n1gulx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', "nilexglobalsolar.com"]
+ALLOWED_HOSTS = ['localhost', "nilexglobalsolar.com", "web-production-f9a3.up.railway.app"]
 
 
 # Application definition
@@ -224,7 +224,7 @@ PaystackConfig.PUBLIC_KEY = env("PAYSTACK_PUBLIC")
 # }
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CSRF_TRUSTED_ORIGINS = ['https://nilexglobalsolar.com' ]
+CSRF_TRUSTED_ORIGINS = ['https://nilexglobalsolar.com', "https://web-production-f9a3.up.railway.app" ]
 
 
 
