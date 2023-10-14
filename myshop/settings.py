@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
 from dotenv import load_dotenv
 
 # import django_heroku
@@ -20,10 +21,37 @@ from django.utils.translation import gettext_lazy as _
 from python_paystack.paystack_config import PaystackConfig
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False
 load_dotenv(os.path.join(BASE_DIR, ".env"))
+DEBUG = False  if  os.getenv("DEBUG") == "False" else True
+
+
+ALLOWED_HOSTS = ["nilexglobalsolar.com", "web-production-f9a3.up.railway.app", "localhost"]
+
+SECRET_KEY = 'django-insecure-4+_(3$tx@69!2wigy35y*+=+@98nod7f3ky!@p@dj%y5n1gulx'
+
+
+CSRF_TRUSTED_ORIGINS = ['https://nilexglobalsolar.com', "https://web-production-f9a3.up.railway.app"]
+
+
+
+if DEBUG:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+else:
+    DATABASE_URL = os.getenv("DATABASE_URL")
+
+
+
+    DATABASES = {
+            "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+        }
 
 
 
