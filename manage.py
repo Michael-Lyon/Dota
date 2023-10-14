@@ -2,17 +2,10 @@ import os
 import sys
 from dotenv import load_dotenv
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-load_dotenv(os.path.join(BASE_DIR, ".env"))
-
-environment = "production"
-
-if str(os.getenv("DEBUG")) == "True":
-    environment = "local"
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'myshop.settings.{environment}')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'myshop.settings.production')
 
     try:
         from django.core.management import execute_from_command_line
