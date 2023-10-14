@@ -1,15 +1,14 @@
 import os
-from pathlib import Path
 import sys
 from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
-environment="production"
+environment = "production"
 
 if str(os.getenv("DEBUG")) == "True":
-    environment="local"
+    environment = "local"
 
 def main():
     """Run administrative tasks."""
@@ -24,7 +23,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()
