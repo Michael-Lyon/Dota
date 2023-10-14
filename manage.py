@@ -4,11 +4,14 @@ import sys
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent
-
-DEBUG = False
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
-def main(environment):
+environment="production"
+
+if str(os.getenv("DEBUG")) == "True":
+    environment="local"
+
+def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'myshop.settings.{environment}')
 
@@ -24,8 +27,4 @@ def main(environment):
 
 
 if __name__ == '__main__':
-    print(os.getenv("DEBUG"))
-    if str(os.getenv("DEBUG")) == "True":
-        main(environment="local")
-    else:
-        main(environment="production")
+    main()
