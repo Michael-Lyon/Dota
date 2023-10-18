@@ -65,7 +65,8 @@ def order_create(request):
                 order.save()
                 return redirect(transaction.authorization_url)
     else:
-        if request.session.get('paystack_reference', None):
+        payment_data = request.session.get('paystack_reference', None)
+        if payment_data:
             order_id = request.session.get('order_id')
             order = get_object_or_404(Order, id=order_id)
             transaction_manager = TransactionsManager()
@@ -103,6 +104,8 @@ def order_create(request):
             else:
                 del request.session['paystack_reference']
                 return redirect('payment:canceled')
+        else:
+            return redirect('payment:canceled')
     return render(request,
                       'orders/order/checkout.html',
                       {'cart': cart, 'form': form, 'coupon_form': coupon_form})

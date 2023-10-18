@@ -24,8 +24,9 @@ from python_paystack.paystack_config import PaystackConfig
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(os.path.join(BASE_DIR, ".env"))
-DEBUG = False  if  os.getenv("DEBUG") == "False" else True
-
+print(os.getenv("DEBUG"))
+DEBUG = True
+# DEBUG = False if os.getenv("DEBUG") == "False" else True
 
 ALLOWED_HOSTS = ["nilexglobalsolar.com", "web-production-f9a3.up.railway.app", "localhost"]
 
