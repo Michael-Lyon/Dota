@@ -18,7 +18,6 @@ from dotenv import load_dotenv
 # import django_heroku
 from django.utils.translation import gettext_lazy as _
 
-from python_paystack.paystack_config import PaystackConfig
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,7 +76,6 @@ INSTALLED_APPS = [
     'orders',
     'payment',
     'coupons',
-    'python_paystack',
     "django_makemessages_xgettext",
     'widget_tweaks',
     'cloudinary',
@@ -198,8 +196,6 @@ REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
 REDIS_DB = os.getenv("REDIS_DB")
 REDIS_DB = 1
 
-PaystackConfig.SECRET_KEY = os.getenv("PAYSTACK_SECRET")
-PaystackConfig.PUBLIC_KEY = os.getenv("PAYSTACK_PUBLIC")
 
 
 

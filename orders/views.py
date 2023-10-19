@@ -10,9 +10,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
-from python_paystack.managers import TransactionsManager
-from python_paystack.objects.transactions import Transaction
-from django.contrib.sites.shortcuts import get_current_site
+from orders.payment_manage import initialize_transaction, verify_transaction
 from cart.cart import Cart
 from coupons.forms import CouponApplyForm
 
@@ -51,31 +49,23 @@ def order_create(request):
             if request.POST.get('paymentMethod') == 'bt':
                 return redirect(reverse('payment:process'))
             else:
-                email = order.email
-                callback = f"{get_current_site(request)}:{reverse('shop:product_list')}"
-                print(callback)
-                fee = order.get_total_cost() * 100
-                transaction = Transaction(fee, email)
-                transaction_manager = TransactionsManager()
-                transaction = transaction_manager.initialize_transaction(
-                    'STANDARD', transaction, callback_url="https://nilexglobalsolar.com/orders/create/")  # TODO callback_url=callback)
-                payment_info = json.loads(transaction.to_json())
-                request.session['paystack_reference'] = payment_info['reference']
-                order.paystack_reference = payment_info['reference']
-                order.save()
-                return redirect(transaction.authorization_url)
+                transaction_url, reference = initialize_transaction(order.id)
+                if transaction_url:
+                    request.session['paystack_reference'] = reference
+                    order.paystack_reference = reference
+                    order.save()
+                    return redirect(transaction_url)
+                else:
+                    return redirect('payment:canceled')
     else:
-        payment_data = request.session.get('paystack_reference', None)
-        if payment_data:
+        trxref = request.GET.get('trxref', None)
+        if trxref:
             order_id = request.session.get('order_id')
             order = get_object_or_404(Order, id=order_id)
-            transaction_manager = TransactionsManager()
-            transaction = transaction_manager.verify_transaction(
-                transaction_reference=request.session.get('paystack_reference'))
+            transaction = verify_transaction(trxref)
 
-            payment_info = json.loads(transaction.to_json())
             # print(payment_info)
-            if payment_info['status'] == "success":
+            if transaction:
                 order.paid = True
                 order.save()
                 # create and send invoice to the customer
@@ -104,8 +94,6 @@ def order_create(request):
             else:
                 del request.session['paystack_reference']
                 return redirect('payment:canceled')
-        else:
-            return redirect('payment:canceled')
     return render(request,
                       'orders/order/checkout.html',
                       {'cart': cart, 'form': form, 'coupon_form': coupon_form})
