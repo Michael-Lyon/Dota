@@ -79,7 +79,7 @@ class Cart(object):
         if self.session.get('coupon_id', False):
             del self.session['coupon_id']
         del self.session[settings.CART_SESSION_ID]
-        
+
         self.save()
 
 
