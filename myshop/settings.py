@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 print(os.getenv("DEBUG"))
-DEBUG = True
-# DEBUG = False if os.getenv("DEBUG") == "False" else True
+# DEBUG = True
+DEBUG = False if os.getenv("DEBUG") == "False" else True
 
 ALLOWED_HOSTS = ["nilexglobalsolar.com", "web-production-f9a3.up.railway.app", "localhost"]
 
