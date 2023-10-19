@@ -38,8 +38,7 @@ def order_create(request):
                                          price=item['price'],
                                          quantity=item['quantity']
                                          )
-            # clear the cart
-            cart.clear()
+            
 
            # launch asynchronous task
             request.session['order_id'] = order.id
@@ -68,6 +67,8 @@ def order_create(request):
             if transaction:
                 order.paid = True
                 order.save()
+                # clear the cart
+                cart.clear()
                 # create and send invoice to the customer
                 subject = f'NilexGlobalSolar - Invoice no. {order.id}'
                 message = f"Please, find the attached invoice for your recent purchase."
