@@ -1,4 +1,4 @@
-FROM python:3.11-bullseye
+FROM python:3.11
 
 ENV PYTHONUNBUFFERED=1
 
@@ -9,16 +9,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libjpeg-dev \
     libopenjp2-7-dev \
     libffi-dev \
-    libglib2.0-dev \
-    && rm -rf /var/lib/apt/lists/*
+    libglib2.0-dev
 
 WORKDIR /app
 
 COPY requirements.txt ./
 
-RUN pip install --upgrade pip setuptools \
-    && pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
-COPY . .
+COPY . ./
 
-CMD ["gunicorn", "myshop.wsgi"]
+CMD gunicorn myshop.wsgi
