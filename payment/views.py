@@ -1,8 +1,10 @@
 from http import client
 from io import BytesIO
+import os
+from django.contrib.staticfiles import finders
 
 import braintree
-import weasyprint
+import xhtml2pdf.pisa as pisa
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
@@ -43,14 +45,14 @@ def payment_process(request):
             )
             # generate PDF
             html = render_to_string('orders/order/pdf.html', {'order': order})
-            # out = BytesIO()
             response = HttpResponse(content_type='application/pdf')
-            stylesheets = [weasyprint.CSS(f"{settings.STATIC_ROOT}/css/pdf.css")]
-            weasyprint.HTML(string=html).write_pdf(response, #out 
-                                                   stylesheets=stylesheets)
+            pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
 
+            if pisa_status.err:
+                return HttpResponse('We had some errors <pre>' + html + '</pre>')
+            
             # ATTACH PDF file
-            # email.attach(f'order_{order.id}.pdf', out.getvalue(), 'application/pdf')
+            # email.attach(f'order_{order.id}.pdf', response.getvalue(), 'application/pdf')
             #send mail
             # email.send()
             return response
@@ -68,3 +70,16 @@ def payment_done(request):
 
 def payment_canceled(request):
     return render(request, 'payment/canceled.html')
+
+
+def link_callback(uri, rel):
+    """
+    Convert HTML URIs to absolute system paths so xhtml2pdf can access those resources
+    """
+    result = finders.find(uri)
+    if result:
+        if not isinstance(result, (list, tuple)):
+            result = [result]
+        result = list(os.path.realpath(path) for path in result)
+        return result[0]
+    return None

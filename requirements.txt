@@ -69,3 +69,4 @@ webencodings==0.5.1
 whitenoise==6.5.0
 wrapt==1.15.0
 zopfli==0.2.3
+xhtml2pdf

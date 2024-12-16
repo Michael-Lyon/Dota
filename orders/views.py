@@ -2,8 +2,9 @@ from email.message import EmailMessage
 from itertools import product
 import json
 from statistics import quantiles
+from django.contrib.staticfiles import finders
 
-import weasyprint
+import xhtml2pdf.pisa as pisa
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
@@ -79,14 +80,14 @@ def order_create(request):
                 # )
                 # generate PDF
                 html = render_to_string('orders/order/pdf.html', {'order': order})
-                # out = BytesIO()
                 response = HttpResponse(content_type='application/pdf')
-                stylesheets = [weasyprint.CSS(f"{settings.STATIC_ROOT}/css/pdf.css")]
-                weasyprint.HTML(string=html).write_pdf(response,  # out
-                                                    stylesheets=stylesheets)
+                pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
+
+                if pisa_status.err:
+                    return HttpResponse('We had some errors <pre>' + html + '</pre>')
 
                 # ATTACH PDF file
-                # email.attach(f'order_{order.id}.pdf', out.getvalue(), 'application/pdf')
+                # email.attach(f'order_{order.id}.pdf', response.getvalue(), 'application/pdf')
                 #send mail
                 # email.send()
                 del request.session['paystack_reference']
@@ -116,6 +117,22 @@ def admin_order_pdf(request, order_id):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'filename=\
                 "order_{}.pdf"'.format(order.id)
-    weasyprint.HTML(string=html).write_pdf(response, stylesheets=[
-        weasyprint.CSS(f"{settings.STATIC_ROOT}/css/pdf.css")])
+    pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
+
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+
     return response
+
+
+def link_callback(uri, rel):
+    """
+    Convert HTML URIs to absolute system paths so xhtml2pdf can access those resources
+    """
+    result = finders.find(uri)
+    if result:
+        if not isinstance(result, (list, tuple)):
+            result = [result]
+        result = list(os.path.realpath(path) for path in result)
+        return result[0]
+    return None
